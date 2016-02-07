@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>io.desmet.jo</groupId>
+	<artifactId>zakee-web</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>zakee-web</name>
+
+	<properties>
+		<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+	<dependencies>
+    <!-- Full JEE 7 Spec -->
+    <!-- =============== -->
+		<!-- Tomcat does only a partial implementation! -->
+		<!--dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-web-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency-->
+		
+    <!-- Tomcat Implemented Specs -->
+    <!-- ======================== -->
+    <!-- http://mvnrepository.com/open-source/java-specs -->
+    <!--
+      Tomcat 7.0.56 = Servlet 3.0 + JSP 2.2 + EL 2.2 + WebSocket 1.1 + Common Annotations 1.1 (jsr250-api)
+      Tomcat 8.0.14 = Servlet 3.1 + JSP 2.3 + EL 3.0 + WebSocket 1.1 + Common Annotations 1.2 (annotation-api)
+    -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <scope>provided</scope>
+      <version>3.1.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet.jsp</groupId>
+      <artifactId>javax.servlet.jsp-api</artifactId>
+      <scope>provided</scope>
+      <version>2.3.1</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.el</groupId>
+      <artifactId>javax.el-api</artifactId>
+      <scope>provided</scope>
+      <version>3.0.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.annotation</groupId>
+      <artifactId>javax.annotation-api</artifactId>
+      <scope>provided</scope>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.websocket</groupId>
+      <artifactId>javax.websocket-api</artifactId>
+      <version>1.1</version>
+      <scope>provided</scope>
+    </dependency>
+ 
+    <!-- Additional JEE Specs -->
+    <!-- ==================== -->
+    <!-- http://mvnrepository.com/open-source/java-specs -->
+    <!-- Note that for added specs, we should also provide -->
+		<!-- a runtime version (Implementation). -->
+ 
+    <!-- CDI -->
+    <dependency>
+      <groupId>javax.enterprise</groupId>
+      <artifactId>cdi-api</artifactId>
+      <scope>provided</scope>
+      <version>1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+      <scope>provided</scope>
+      <version>1</version>
+    </dependency>
+ 
+    <!-- JSF API -->
+    <dependency>
+      <groupId>javax.faces</groupId>
+      <artifactId>javax.faces-api</artifactId>
+      <version>2.2</version>
+      <scope>provided</scope>
+    </dependency>
+ 
+    <!-- Bean Validation API (JSR 303) -->
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+      <version>1.1.0.Final</version>
+    </dependency>
+		
+		<!-- JAX-RS -->
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>javax.ws.rs-api</artifactId>
+      <version>2.0.1</version>
+      <!-- There is somewhere a bug in the Jersey distribution ... for now I
+      need to include this api as compile (or default). -->
+      <!--scope>provided</scope-->
+    </dependency>
+ 
+    <!-- Additional JEE Implementations (Run-Times) -->
+    <!-- =========================================== -->
+ 
+    <!-- This is the Mojarra Implementation of JSF 2.2 -->
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>javax.faces</artifactId>
+      <version>2.2.12</version>
+      <scope>runtime</scope>
+    </dependency>
+ 
+    <dependency>
+      <groupId>org.jboss.weld.servlet</groupId>
+      <artifactId>weld-servlet</artifactId>
+      <version>2.3.2.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+   
+    <!-- Bean Validation Implementation -->
+    <!-- Provides portable constraints such as @NotEmpty, @Email and @Url -->
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>5.2.3.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-entitymanager</artifactId>
+      <version>5.0.7.Final</version>
+      <scope>runtime</scope>
+    </dependency>
+		
+		<!-- Jersey Implementation of JAX-RS -->
+     <!--
+      Jersey Compatibility:
+        Jersey 2.6: JDK 6
+        Jersey 2.7: minimum JDK 7 is required!
+        Latest Stable: 2.22.1 (as of 2/1/2016)
+    -->
+   <dependency>
+      <groupId>org.glassfish.jersey.containers</groupId>
+      <artifactId>jersey-container-servlet</artifactId>
+      <version>2.22.1</version>
+    </dependency>
+    <!-- Required only when you are using JAX-RS Client -->
+    <!--dependency>
+      <groupId>org.glassfish.jersey.core</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>${jersey.version}</version>
+    </dependency-->
+		
+		<!-- Bindings and Regstration Classes -->
+		<!-- ================================ -->
+		
+    <!-- Required to bind Weld and Jersey -->
+    <!-- https://jersey.java.net/documentation/latest/cdi.support.html -->
+    <!-- Causes CdI @Inject to work, but Jersey @Context injection to fail -->
+    <!--dependency>
+      <groupId>org.glassfish.jersey.ext.cdi</groupId>
+      <artifactId>jersey-cdi1x</artifactId>
+      <version>${jersey.version}</version>
+    </dependency-->
+
+		<dependency>
+      <groupId>org.netbeans.html</groupId>
+      <artifactId>net.java.html.json</artifactId>
+      <version>1.2.3</version>
+      <scope>compile</scope>
+    </dependency>
+   
+ 
+  </dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<compilerArguments>
+						<endorseddirs>${endorsed.dir}</endorseddirs>
+					</compilerArguments>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.10</version>
+				<executions>
+					<execution>
+						<phase>validate</phase>
+						<goals>
+								<goal>copy</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${endorsed.dir}</outputDirectory>
+							<silent>true</silent>
+							<artifactItems>
+								<artifactItem>
+									<groupId>javax</groupId>
+									<artifactId>javaee-endorsed-api</artifactId>
+									<version>7.0</version>
+									<type>jar</type>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+      <plugin>
+        <groupId>org.apache.tomcat.maven</groupId>
+        <artifactId>tomcat7-maven-plugin</artifactId>
+        <version>2.2</version>
+        <configuration>
+          <port>9090</port>
+          <path>/nqp</path>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ojdbc7</artifactId>
+            <version>12.1.0.2</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+		</plugins>
+	</build>
+	
+  <repositories>
+    <repository>
+      <id>unknown-jars-temp-repo</id>
+      <name>A temporary repository created by NetBeans for libraries and jars it could not identify. Please replace the dependencies in this repository with correct ones and delete this repository.</name>
+      <url>file:${project.basedir}/lib</url>
+    </repository>
+  </repositories>
+</project>
+
+ 
+ 
