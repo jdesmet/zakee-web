@@ -1,2 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/zakee"/>
+<Context antiJARLocking="true" path="/zakee">
+  <Resource
+    name="BeanManager"
+    auth="Container"
+    type="javax.enterprise.inject.spi.BeanManager"
+    factory="org.jboss.weld.resources.ManagerObjectFactory"
+    />
+</Context>
