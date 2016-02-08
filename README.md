@@ -1,20 +1,59 @@
 # zakee-web
-Custom tailored Tomcat deployment to make it As much as possible Jee7 compliant
 
 I wanted to custom build a close-to JEE 7 Compliant Application Server, using a 
 minimalistic approach. My aim was also to use as much as possible the reference 
-implemenations.
+implemenations and avoid any customizations if at all possible.
+
+Because of those goals, You should be able to do a plain vanilla install of Tomcat,
+and add in additional JEE support by simply using the right combination of Maven
+Dependencies. There is even a Tomcat Maven Depencency that can download, install,
+and deploy to a Tomcat instance with a single command.
+
+BTW, I kind of wanted to name this project something, so I thought ... "well, Tomcat
+is not really a cat's name, but as a kid I had a cat. His name was Zakie, and in the
+light of Tomee, tought I could name this project 'Zakee' (which is pronounced the same as the
+Dutch Zakie anyhow).
 
 Base Tomcat basically is just a Servlet Container with support for Servlets and 
-JSP. No included JEE Features like CDI, JSF. Tomcat also provides only a read-only 
-JNDI context under java:comp/env, and will require manually registering the Bean 
-Manager SPI.
+JSP. No included JEE Features like CDI, JSF. 
 
-You can read more on this topic directly under the [Weld Documentation](https://docs.jboss.org/weld/reference/latest/en-US/html/environments.html#_tomcat).
+To understand what comes shipped with the base Tomcat installation, you can use
+following table:
+
+| JEE Spec | Tomcat 7.0.x | Tomcat 8.0.x | Tomcat 9.0.x |
+|----------------|---------------|---------------|-----|
+|Servlet | 3.0 ([JSR315](http://www.jcp.org/en/jsr/summary?id=315)) | 3.1 ([JSR340](http://www.jcp.org/en/jsr/detail?id=340))| 4.0 |
+|JSP | 2.2 ([JSR245](http://www.jcp.org/en/jsr/summary?id=245)) | 2.3 | 2.4? |
+|EL (Expression Language) | 2.2 ([JSR245](http://www.jcp.org/en/jsr/summary?id=245)) | 3.0 ([JSR341](http://www.jcp.org/en/jsr/summary?id=341)) | 3.1 ? |
+|WebSocket | 1.1 ([JSR356](http://www.jcp.org/en/jsr/summary?id=356)) | 1.1 ([JSR346](http://www.jcp.org/en/jsr/summary?id=356)) | 1.2 ? |
+|Common Annotations | 1.1 (jsr250-api) | 1.2 (annotation-api) |
+
+More information can be found on
+
+* [Tomcat Specifications](http://wiki.apache.org/tomcat/Specifications)
+* [Tomcat Versions](http://wiki.apache.org/tomcat/TomcatVersions)
+* [Maven Dependencies for JEE Specification](http://mvnrepository.com/open-source/java-specs)
+
+As this sits on top Git, I will not attempt to create different setups depending on the Tomcat
+version. You want an earlier version, we can go about using Git to pull and rebuild, but this document
+as of current writing, will focus exclusively on Tomcat 8.
+
+Now in addition to the Base Tomcat 8.0.x install base, we will add in following JEE support:
+
+| JEE Spec | Specification (API) | Implementation (SPI) |
+|----------|---------------------|----------------------|
+| CDI | 1.2 | Weld 2.3.2 |
+| JSF | 2.2 | GlassFish Mojarra 2.2.12 |
+| Bean Validation | 1.1.0 ([JSR303](http://www.jcp.org/en/jsr/summary?id=303)) | Hibernate Validator 5.2.3 |
+| JAX-RS | 2.0.1 (javax.ws.rs-api) | Jersey 2.22.1 (JDK7 or later) |
+
+This means that the most notable absence is JPA and JTA. Also at this point integration between CDI and JAX-RS
+is somewhat broken, as enabling integration between the two causes the JAX-RS injectin annotations to be broken,
+although plain CDI will work.
 
 ## Choosing the Implementations (dependencies)
 
-Because Tomcat Doesn’t come with CDI or JSF baked into it, we will have to choose 
+Because Tomcat Doesn’t come with CDI, JSF, or Jax-RS baked into it, we will have to choose 
 ourselves which implementation we are going to include. Well, kind of like that, 
 never could agree with others, and I have the chance to choose latest versions
 independent of support offered by the vendor of the server.
@@ -117,6 +156,8 @@ Again, for a fully Java EE 7 compliant server, we would simply not have included
 
 With these dependencies added to your web project, you might be able to compile everything, but you won’t be able to do much yet, and might see exceptions. We still need to configure things further to enable CDI and JSF.
 
+## JAX-RS
+
 ## Configuration
 
 The following is the list of configuration files that require attention:
@@ -215,7 +256,7 @@ index.xhtml (src/main/webapp)
 
 Me.java (src/main/java)
 
-```xml
+```java
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
