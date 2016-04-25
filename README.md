@@ -25,15 +25,19 @@ including:
 - modifying the context path, which is set in src/main/webapp/META-INF/context.xml and in
 the pom.xml.
 
-# Starting the embedded Tomcat container with Cargo
+# Start Tomcat
 
 The pom is preconfigured to work with [Cargo Maven Plugin](https://codehaus-cargo.github.io/cargo/Maven2+plugin.html). 
-To start it from the command-line, you can start it as follows:
+to start and deploy the project on tomcat 8 from the command-line:
 
 ```
     mvn clean package cargo:run
 ```
 
-With the preconfigured settings, it will use servlet port :9090, and ajp port :9009. Once
+With the pre-configured settings, it will use servlet port :9090, and ajp port :9009. Once
 started, you should be able to access the main webpage form [http://localhost:9090/zakee-web/].
+
+Note that this project will just as well work with NetBeans, for which the cargo
+settings will be ignored. With NetBeans, you can just 'run' the project with a 
+preconfigured Application Server (Tomcat 8).
 
