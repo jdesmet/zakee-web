@@ -109,6 +109,14 @@
       <!--scope>provided</scope-->
     </dependency>
  
+    <!-- JavaMail Implementation (JSR 919) http://java.net/projects/javamail/pages/Home -->
+    <dependency>
+      <groupId>javax.mail</groupId>
+      <artifactId>javax.mail-api</artifactId>
+      <version>1.5.5</version>
+      <scope>provided</scope>
+    </dependency>
+    
     <!-- Additional JEE Implementations (Run-Times) -->
     <!-- =========================================== -->
  
@@ -160,6 +168,14 @@
       <artifactId>jersey-client</artifactId>
       <version>${jersey.version}</version>
     </dependency-->
+    
+    <!-- JavaMail Implementation (JSR 919) http://java.net/projects/javamail/pages/Home -->
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.5.5</version>
+      <scope>runtime</scope>
+    </dependency>
 		
 		<!-- Bindings and Regstration Classes -->
 		<!-- ================================ -->
@@ -186,7 +202,7 @@
     <dependency>
         <groupId>net.bootsfaces</groupId>
         <artifactId>bootsfaces</artifactId>
-        <version>0.9.0</version>
+        <version>0.9.1</version>
         <scope>compile</scope>
     </dependency>
     <dependency>
