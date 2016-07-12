@@ -245,6 +245,7 @@
 		</pluginManagement>
 		<plugins>
 			<plugin>
+        <!-- https://codehaus-cargo.github.io/cargo/Starting+and+stopping+a+container.html -->
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
 				<version>1.4.19</version>
@@ -254,6 +255,9 @@
 						<zipUrlInstaller>
 							<url>http://repo1.maven.org/maven2/org/apache/tomcat/tomcat/8.5.0/tomcat-8.5.0.zip</url>
 						</zipUrlInstaller>
+            <dependencies>
+              <!-- Dependencies to be included in the container classpath (JDBC Drivers) -->
+            </dependencies>
 					</container>
 					<configuration>
 						<properties>
