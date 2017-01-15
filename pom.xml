@@ -77,13 +77,14 @@
     <!-- Note that for added specs, we should also provide -->
 		<!-- a runtime version (Implementation). -->
  
-    <!-- CDI -->
+    <!-- CDI - JSR-299 = JSR-330 (DI) + JSR-341 (EL) + JSR-318 (Interceptors) + More (scopes etc) -->
     <dependency>
       <groupId>javax.enterprise</groupId>
       <artifactId>cdi-api</artifactId>
       <scope>provided</scope>
       <version>1.2</version>
     </dependency>
+    <!-- DI - JSR-330: Inject, Qualifier, Scope, Singleton, Named, and Provider -->
     <dependency>
       <groupId>javax.inject</groupId>
       <artifactId>javax.inject</artifactId>
@@ -135,10 +136,11 @@
       <scope>runtime</scope>
     </dependency>
  
+    <!-- CDI 1.2 Impl: http://weld.cdi-spec.org --> 
     <dependency>
       <groupId>org.jboss.weld.servlet</groupId>
       <artifactId>weld-servlet</artifactId>
-      <version>2.3.2.Final</version>
+      <version>2.4.1.Final</version>
       <scope>runtime</scope>
     </dependency>
    
@@ -167,13 +169,13 @@
 		<dependency>
       <groupId>org.glassfish.jersey.containers</groupId>
       <artifactId>jersey-container-servlet</artifactId>
-      <version>2.22.2</version>
+      <version>2.25</version>
     </dependency>
     <!-- Required only when you are using JAX-RS Client -->
     <!--dependency>
       <groupId>org.glassfish.jersey.core</groupId>
       <artifactId>jersey-client</artifactId>
-      <version>${jersey.version}</version>
+      <version>2.25</version>
     </dependency-->
     
     <!-- JavaMail Implementation (JSR 919) http://java.net/projects/javamail/pages/Home -->
@@ -190,11 +192,12 @@
     <!-- Required to bind Weld and Jersey -->
     <!-- https://jersey.java.net/documentation/latest/cdi.support.html -->
     <!-- Causes CdI @Inject to work, but Jersey @Context injection to fail -->
-    <!--dependency>
+    <dependency>
       <groupId>org.glassfish.jersey.ext.cdi</groupId>
       <artifactId>jersey-cdi1x</artifactId>
-      <version>${jersey.version}</version>
-    </dependency-->
+      <version>2.25</version>
+      <scope>compile</scope>
+    </dependency>
 
 		<dependency>
       <groupId>org.netbeans.html</groupId>
