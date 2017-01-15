@@ -21,6 +21,8 @@ import javax.ws.rs.core.MediaType;
  * @author jd3714
  */
 @Path("zakee-service")
+// Apparently @Context only works when we explictly mark the scope as well.
+// Anyhow as per IBM it is a good practice to explicitly mark a RS service as RequestScoped.
 @RequestScoped
 public class ZakeeService {
   @Context HttpServletRequest httpServletContext;
