@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+  <modelVersion>4.0.0</modelVersion>
 
-	<groupId>io.desmet.jo</groupId>
-	<artifactId>zakee-web</artifactId>
-	<version>0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+  <groupId>io.desmet.jo</groupId>
+  <artifactId>zakee-web</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
 
-	<name>zakee-web</name>
+  <name>zakee-web</name>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
 
 	<dependencies>
@@ -32,6 +32,7 @@
     <!--
       Tomcat 7.0.56 = Servlet 3.0 + JSP 2.2 + EL 2.2 + WebSocket 1.1 + Common Annotations 1.1 (jsr250-api)
       Tomcat 8.0.14 = Servlet 3.1 + JSP 2.3 + EL 3.0 + WebSocket 1.1 + Common Annotations 1.2 (annotation-api)
+      Tomcat 8.5.x  = Servlet 3.1 + JSP 2.3 + EL 3.0 + WebSocket 1.1 + Common Annotations 1.2 (annotation-api) + JASPIC 1.1 (Auth)
     -->
     <dependency>
       <groupId>javax.servlet</groupId>
@@ -60,6 +61,12 @@
     <dependency>
       <groupId>javax.websocket</groupId>
       <artifactId>javax.websocket-api</artifactId>
+      <version>1.1</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.security.auth.message</groupId>
+      <artifactId>javax.security.auth.message-api</artifactId>
       <version>1.1</version>
       <scope>provided</scope>
     </dependency>
@@ -109,11 +116,11 @@
       <!--scope>provided</scope-->
     </dependency>
  
-    <!-- JavaMail Implementation (JSR 919) http://java.net/projects/javamail/pages/Home -->
+    <!-- JavaMail (JSR 919) http://java.net/projects/javamail/pages/Home -->
     <dependency>
       <groupId>javax.mail</groupId>
       <artifactId>javax.mail-api</artifactId>
-      <version>1.5.5</version>
+      <version>1.5.6</version>
       <scope>provided</scope>
     </dependency>
     
@@ -173,7 +180,7 @@
     <dependency>
       <groupId>com.sun.mail</groupId>
       <artifactId>javax.mail</artifactId>
-      <version>1.5.5</version>
+      <version>1.5.6</version>
       <scope>runtime</scope>
     </dependency>
 		
@@ -224,12 +231,12 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 				  <artifactId>maven-compiler-plugin</artifactId>
-				  <version>3.5.1</version>
+				  <version>3.6.0</version>
         </plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-war-plugin</artifactId>
-					<version>2.6</version>
+					<version>3.0.0</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -253,7 +260,7 @@
 					<container>
 						<containerId>tomcat8x</containerId>
 						<zipUrlInstaller>
-							<url>http://repo1.maven.org/maven2/org/apache/tomcat/tomcat/8.5.0/tomcat-8.5.0.zip</url>
+              <url>http://repo1.maven.org/maven2/org/apache/tomcat/tomcat/8.5.9/tomcat-8.5.9.zip</url>
 						</zipUrlInstaller>
             <dependencies>
               <!-- Dependencies to be included in the container classpath (JDBC Drivers) -->
