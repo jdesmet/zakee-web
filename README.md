@@ -41,3 +41,5 @@ Note that this project will just as well work with NetBeans, for which the cargo
 settings will be ignored. With NetBeans, you can just 'run' the project with a 
 preconfigured Application Server (Tomcat 8).
 
+The project also runs in Eclipse without any changes.
+
