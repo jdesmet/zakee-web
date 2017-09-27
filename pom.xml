@@ -229,6 +229,7 @@
   </dependencies>
 
 	<build>
+          <finalName>zakee</finalName>
 		<pluginManagement>
 			<plugins>
 				<plugin>
