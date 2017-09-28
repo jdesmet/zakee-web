@@ -43,3 +43,13 @@ preconfigured Application Server (Tomcat 8).
 
 The project also runs in Eclipse without any changes.
 
+
+# Docker
+
+This can be easily dockerized as well - a sample Dockerfile has been included. A version has been pushed to Docker Hub as well, although I cannot guarantee which version. To find it in Docker Hub: jdesmet/zakee-web:latest
+
+```
+    docker pull jdesmet/zakee-web:latest
+    docker run -it -p 8080:8080 jdesmet/zakee-web
+```
+
