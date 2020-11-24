@@ -41,6 +41,9 @@ Note that this project will just as well work with NetBeans, for which the cargo
 settings will be ignored. With NetBeans, you can just 'run' the project with a 
 preconfigured Application Server (Tomcat 8).
 
+The project also runs in Eclipse without any changes.
+
+
 # Docker
 
 This can be easily dockerized as well - a sample Dockerfile has been included. A version has been pushed to Docker Hub as well, although I cannot guarantee which version. To find it in Docker Hub: jdesmet/zakee-web:latest

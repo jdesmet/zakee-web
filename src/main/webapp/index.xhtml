@@ -1,23 +1,54 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:b="http://bootsfaces.net/ui"
-      >
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:b="http://bootsfaces.net/ui">
 	<h:head>
 		<title>Introduce</title>
 	</h:head>
 	<h:body>
-		<h:outputText rendered="${who.you.introduced}" value="I think I know you, are you ${who.you.firstName}?"/>
-		<h:form>
-      <h:panelGrid columns="2" cellpadding="5" cellspacing="5">
-        <h:outputText value="User:"/>
-        <b:inputText value="#{who.you.firstName}">
-          <f:facet name="prepend"><b:icon name="user" /></f:facet>
-        </b:inputText>
-      </h:panelGrid>
-		</h:form>
+		<b:container>
+			<b:panel title="CDI demo" look="primary">
+				<b:panelGrid columns="1" look="primary">
+					<h:outputText rendered="${who.you.introduced}"
+						value="I think I know you, are you ${who.you.firstName}?" />
+					<h:form>
+						<b:inputText label="User:" value="#{who.you.firstName}">
+							<f:facet name="prepend">
+								<b:icon name="user" />
+							</f:facet>
+						</b:inputText>
+						<p>If the text in the input field is "Guest", CDI works.</p>
+					</h:form>
+				</b:panelGrid>
+			</b:panel>
+	
+			<b:panel title="JAX-RS demo" look="primary">
+				<b:row>
+					<b:column small-screen="half">Simple REST service: 
+						<a href="#{request.contextPath}/rs/zakee-service/context">#{request.contextPath}/rs/zakee-service/context</a>
+					</b:column>
+					<b:column small-screen="half">Result: <span class="result-rest-service-one">(waiting for the REST service result)</span>
+					</b:column>
+				</b:row>
+				<b:row>
+					<b:column small-screen="half">REST service using CDI: 
+						<a href="#{request.contextPath}/rs/zakee-service/who">#{request.contextPath}/rs/zakee-service/who</a>
+					</b:column>
+					<b:column small-screen="half">Result: <span class="result-rest-service-two">(waiting for the REST service result)</span>
+					</b:column>
+				</b:row>
+				<script>
+					$.get('#{request.contextPath}/rs/zakee-service/context', function(data) {
+						  $('.result-rest-service-one').html(data);
+						});
+					$.get('#{request.contextPath}/rs/zakee-service/who', function(data) {
+						  $('.result-rest-service-two').html(data);
+						});
+				</script>
+			</b:panel>
+		</b:container>
 	</h:body>
 </html>
-

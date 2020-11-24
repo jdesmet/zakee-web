@@ -34,14 +34,14 @@ public class ZakeeService {
   @Produces(MediaType.TEXT_HTML)
   @Path("context")
   public String processContextPath() {
-    return "<p>This "+contextPath+" service is life!</p>";
+    return "This "+contextPath+" service is alife!";
   }
   
   @GET
   @Produces(MediaType.TEXT_HTML)
   @Path("who")
   public String processWho() {
-    return "<p>Service for "+who.getYou().getFirstName()+"</p>";
+    return "Service for "+who.getYou().getFirstName() + " (using CDI)";
   }
   
   @PostConstruct
